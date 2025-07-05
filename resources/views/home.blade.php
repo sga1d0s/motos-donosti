@@ -3,7 +3,7 @@
 @section('title', 'Listado de Motos')
 
 @section('content')
-  <h1>Listado de Motos</h1>
+  <h1>Listado</h1>
   <p><a href="{{ route('motos.create') }}">➕ Añadir Moto Nueva</a></p>
 
   @if($motos->isEmpty())
