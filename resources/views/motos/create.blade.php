@@ -1,9 +1,9 @@
 @extends('layout')
 
-@section('title', 'Añadir Moto')
+@section('title','Añadir Moto')
 
 @section('content')
-  <h1>Añadir Nueva Moto</h1>
+  <h1>➕ Añadir Moto</h1>
 
   @if($errors->any())
     <div style="color:red">
@@ -18,29 +18,33 @@
   <form action="{{ route('motos.store') }}" method="POST">
     @csrf
 
-    <label>Modelo:</label>
-    <input name="modelo" value="{{ old('modelo') }}" required>
+    <label for="modelo">Modelo:</label>
+    <input id="modelo" name="modelo" value="{{ old('modelo') }}" required>
 
-    <label>Matrícula:</label>
-    <input name="matricula" value="{{ old('matricula') }}" required>
+    <label for="matricula">Matrícula:</label>
+    <input id="matricula" name="matricula" value="{{ old('matricula') }}" required>
 
-    <label>Kilómetros:</label>
-    <input name="kilometros" type="number" value="{{ old('kilometros') }}" required>
+    <label for="kilometros">Kilómetros:</label>
+    <input id="kilometros" name="kilometros" type="number"
+           value="{{ old('kilometros') }}" required>
 
-    <label>Fecha ITV:</label>
-    <input name="fecha_itv" type="date" value="{{ old('fecha_itv') }}" required>
+    <label for="fecha_itv">Fecha ITV:</label>
+    <input id="fecha_itv" name="fecha_itv" type="date"
+           value="{{ old('fecha_itv') }}" required>
 
-    <label>Estado:</label>
-    <select name="estado" required>
-      @foreach(['Libre','Alquilada','Averiada','Otros'] as $e)
-        <option value="{{ $e }}" {{ old('estado')==$e?'selected':'' }}>
-          {{ $e }}
+    <label for="status_id">Estado:</label>
+    <select id="status_id" name="status_id" required>
+      <option value="">-- Selecciona un estado --</option>
+      @foreach($statuses as $id => $name)
+        <option value="{{ $id }}"
+          {{ (int) old('status_id') === $id ? 'selected' : '' }}>
+          {{ $name }}
         </option>
       @endforeach
     </select>
 
-    <label>Comentarios:</label>
-    <textarea name="comentarios">{{ old('comentarios') }}</textarea>
+    <label for="comentarios">Comentarios:</label>
+    <textarea id="comentarios" name="comentarios">{{ old('comentarios') }}</textarea>
 
     <button type="submit" class="primary">Guardar Moto</button>
   </form>

@@ -19,29 +19,29 @@
     @csrf
     @method('PUT')
 
-    <label>Modelo:</label>
-    <input name="modelo" value="{{ old('modelo', $moto->modelo) }}" required>
+    <label for="modelo">Modelo:</label>
+    <input id="modelo" name="modelo" value="{{ old('modelo', $moto->modelo) }}" required>
 
-    <label>Matrícula:</label>
-    <input name="matricula" value="{{ old('matricula', $moto->matricula) }}" required>
+    <label for="matricula">Matrícula:</label>
+    <input id="matricula" name="matricula" value="{{ old('matricula', $moto->matricula) }}" required>
 
-    <label>Kilómetros:</label>
-    <input name="kilometros" type="number" value="{{ old('kilometros', $moto->kilometros) }}" required>
+    <label for="kilometros">Kilómetros:</label>
+    <input id="kilometros" name="kilometros" type="number" value="{{ old('kilometros', $moto->kilometros) }}" required>
 
-    <label>Fecha ITV:</label>
-    <input name="fecha_itv" type="date" value="{{ old('fecha_itv', $moto->fecha_itv->format('Y-m-d')) }}" required>
+    <label for="fecha_itv">Fecha ITV:</label>
+    <input id="fecha_itv" name="fecha_itv" type="date" value="{{ old('fecha_itv', $moto->fecha_itv->format('Y-m-d')) }}" required>
 
-    <label>Estado:</label>
-    <select name="estado" required>
-      @foreach(['Libre','Alquilada','Averiada','Otros'] as $e)
-        <option value="{{ $e }}" {{ old('estado', $moto->estado)==$e ? 'selected' : '' }}>
-          {{ $e }}
+    <label for="status_id">Estado:</label>
+    <select id="status_id" name="status_id" required>
+      @foreach($statuses as $id => $name)
+        <option value="{{ $id }}" {{ (int) old('status_id', $moto->status_id) === $id ? 'selected' : '' }}>
+          {{ $name }}
         </option>
       @endforeach
     </select>
 
-    <label>Comentarios:</label>
-    <textarea name="comentarios">{{ old('comentarios', $moto->comentarios) }}</textarea>
+    <label for="comentarios">Comentarios:</label>
+    <textarea id="comentarios" name="comentarios">{{ old('comentarios', $moto->comentarios) }}</textarea>
 
     <button type="submit" class="primary">Actualizar Moto</button>
   </form>

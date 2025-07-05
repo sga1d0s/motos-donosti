@@ -3,36 +3,54 @@
 @section('title', 'Listado de Motos')
 
 @section('content')
-  <h1>Listado</h1>
-  <p><a href="{{ route('motos.create') }}">➕ Añadir Moto Nueva</a></p>
+    <h1 class="mb-4">Listado de Motos</h1>
+    <p><a href="{{ route('motos.create') }}">➕ Añadir Moto Nueva</a></p>
 
-  @if($motos->isEmpty())
-    <p>No hay motos registradas.</p>
-  @else
-    <table>
-      {{-- <thead>
-        <tr>
-          <th>ID</th><th>Modelo</th><th>Matrícula</th>
-          <th>Km</th><th>Fecha ITV</th><th>Estado</th>
-          <th>Comentarios</th><th>Acciones</th>
-        </tr>
-      </thead> --}}
-      <tbody>
-        @foreach($motos as $moto)
-          <tr>
-            <td data-label="ID">{{ $moto->id }}</td>
-            <td data-label="Modelo">{{ $moto->modelo }}</td>
-            <td data-label="Matrícula">{{ $moto->matricula }}</td>
-            <td data-label="Km">{{ $moto->kilometros }}</td>
-            <td data-label="Fecha ITV">{{ $moto->fecha_itv->format('d-m-Y') }}</td>
-            <td data-label="Estado">{{ $moto->estado }}</td>
-            <td data-label="Comentarios">{{ $moto->comentarios }}</td>
-            <td data-label="Acciones">
-              <a href="{{ route('motos.edit', $moto) }}">✏️</a>
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
+    <table class="table-auto w-full border-collapse">
+
+        <tbody>
+            @foreach ($motos as $moto)
+                <tr class="border-t">
+                    {{-- 0) Editar moto --}}
+                    <td>
+                        <a href="{{ route('motos.edit', $moto) }}">✏️</a>
+                    </td>
+
+                    {{-- 1) Nombre de la moto --}}
+                    <td class="px-4 py-2">{{ $moto->modelo }}</td>
+
+                    {{-- 2) Estado computado con indicador de color --}}
+                    <td class="px-4 py-2">
+                        @php
+                            $statusColors = [
+                                'Libre'     => '#28a745', // verde
+                                'Ocupada'   => '#dc3545', // rojo
+                                'Reservada' => '#ffc107', // amarillo
+                                'Averiada'  => '#000000', // negro
+                                'Otros'     => '#6c757d', // gris
+                            ];
+                            $color = $statusColors[$moto->computed_status] ?? '#6c757d';
+                        @endphp
+                        <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background-color:{{ $color }};"></span>
+                    </td>
+
+                    {{-- 3) Fecha de entrega (si existe alguna reserva) --}}
+                    <td class="px-4 py-2">
+                        @php
+                            $reserva = $moto->reservas
+                                ->where('fecha_entrega', '>=', now()->toDateString())
+                                ->sortBy('fecha_entrega')
+                                ->first();
+                        @endphp
+
+                        @if ($reserva)
+                            {{ \Carbon\Carbon::parse($reserva->fecha_entrega)->format('d-m') }}
+                        @else
+                            &mdash;
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
     </table>
-  @endif
 @endsection
