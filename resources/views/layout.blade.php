@@ -139,8 +139,18 @@
             justify-content: space-around
         }
 
-        footer button {
-            max-width: 30%;
+        a.full-btn {
+            display: block;
+            /* para abarcar ancho completo */
+            width: 30%;
+            text-align: center;
+            /* centrar el texto */
+            padding: .5rem 1rem;
+            /* espacio interno */
+            /* y cualquier otro estilo de ‘botón’ que quieras */
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none
         }
     </style>
 </head>
@@ -150,10 +160,10 @@
         @yield('content')
     </div>
 
-    {{-- Solo incluir el footer si NO estamos en la ruta 'login' --}}
-    @unless (Route::is('login'))
-        @include('footer')
-    @endunless
+
+
+    @include('footer')
+
 
     <!-- Service Worker Registration -->
     <script>
