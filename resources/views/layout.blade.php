@@ -160,10 +160,10 @@
         @yield('content')
     </div>
 
-
-
-    @include('footer')
-
+    {{-- Solo incluir el footer si NO estamos en la ruta 'login' --}}
+    @unless (Route::is('login'))
+        @include('footer')
+    @endunless
 
     <!-- Service Worker Registration -->
     <script>
