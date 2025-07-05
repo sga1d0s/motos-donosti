@@ -15,6 +15,10 @@ class Moto extends Model
         'status_id',
     ];
 
+    protected $casts = [
+        'fecha_itv' => 'date',
+    ];
+
     // Relación al estado estático
     public function status()
     {

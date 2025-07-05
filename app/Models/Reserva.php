@@ -13,6 +13,11 @@ class Reserva extends Model
         // añade aquí cliente, observaciones…
     ];
 
+    protected $casts = [
+        'fecha_recogida' => 'date',
+        'fecha_entrega'  => 'date',
+    ];
+
     public function moto()
     {
         return $this->belongsTo(Moto::class);

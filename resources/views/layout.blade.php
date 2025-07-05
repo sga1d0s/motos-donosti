@@ -45,8 +45,8 @@
         form { margin: 1rem 0; }
         input, select, textarea, button {
             width: 100%;
-            padding: .75rem;
-            margin-bottom: 1rem;
+            padding: .5rem;
+            /* margin-bottom: 1rem; */
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1rem;
@@ -66,7 +66,7 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-        @media (max-width: 600px) {
+        @media (max-width: 300) {
             table, thead, tbody, th, td, tr { display: block; }
             tr { margin-bottom: 1rem; }
             th {
@@ -115,6 +115,7 @@
     @unless (Route::is('login'))
         @include('footer')
     @endunless
+    
 
     <!-- Service Worker Registration -->
     <script>
