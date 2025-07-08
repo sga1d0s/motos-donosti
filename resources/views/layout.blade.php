@@ -130,6 +130,8 @@
 
     <!-- Additional page scripts -->
     @stack('scripts')
+
+    
 </body>
 
 </html>

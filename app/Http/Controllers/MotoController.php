@@ -26,7 +26,7 @@ class MotoController extends Controller
             'matricula'  => 'required|string',
             'kilometros' => 'required|integer',
             'fecha_itv'  => 'required|date',
-            'estado'     => 'required|in:Libre,Alquilada,Averiada,Otros',
+            'estado'     => 'required|in:Libre,Ocupada,Reservada,Averiada,Otros',
             'comentarios' => 'nullable|string',
         ]);
 

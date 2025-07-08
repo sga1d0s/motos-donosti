@@ -4,7 +4,7 @@
 
 @section('content')
     <h1 class="mb-4">Listado de Motos</h1>
-    <p><a href="{{ route('motos.create') }}">➕ Añadir Moto Nueva</a></p>
+    <p><a href="{{ route('motos.create') }}">➕ Añadir Moto</a></p>
 
     <table class="table-auto w-full border-collapse">
 
