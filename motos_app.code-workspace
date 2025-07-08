@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Motos App",
+			"path": "."
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			"mariadb_data": true,
+		}
+	}
+}

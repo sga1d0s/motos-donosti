@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+
+  mariadb:
+    image: mariadb:latest
+    container_name: motos_mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: motos_db
+      MYSQL_USER: motos_user
+      MYSQL_PASSWORD: motos_pass
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+    networks:
+      - motos_net
+
+  laravel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: motos_laravel
+    restart: always
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - motos_net
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: motos_mariadb
+      DB_PORT: 3306
+      DB_DATABASE: motos_db
+      DB_USERNAME: motos_user
+      DB_PASSWORD: motos_pass
+
+networks:
+  motos_net:
+    external: true
