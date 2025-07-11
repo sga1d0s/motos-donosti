@@ -29,7 +29,8 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Da permisos a las carpetas necesarias
-RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN mkdir -p storage/framework/{sessions,views,cache} \
+ && chmod -R 777 storage
 
 # Expone el puerto 8000
 EXPOSE 8000
