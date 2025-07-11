@@ -1,4 +1,3 @@
-
 services:
 
   mariadb:
@@ -31,10 +30,15 @@ services:
       - "8000:8000"
     networks:
       - motos_net
+    volumes:
+      - ./src:/var/www/html
+
     entrypoint: >
       sh -c "
         # crea carpetas de cache, sesiones y vistas si faltan
-        mkdir -p /var/www/html/storage/framework/{sessions,views,cache} /var/www/html/storage/logs /var/www/html/bootstrap/cache &&
+        mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
+                 /var/www/html/storage/logs \
+                 /var/www/html/bootstrap/cache &&
         # da propiedad a www-data (UID 33)
         chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache &&
         # arranca servidor
