@@ -3,7 +3,7 @@
 /src/node_modules/
 /src/storage/*.key
 /src/storage/app/public
-/src/storage/framework/*
+# /src/storage/framework/*
 !/src/storage/framework/.gitignore
 /src/storage/logs/*
 !/src/storage/logs/.gitignore
