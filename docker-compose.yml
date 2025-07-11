@@ -4,6 +4,8 @@ services:
   mariadb:
     image: mariadb:latest
     restart: always
+    env_file:
+      - ./stack.env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE:       ${DB_DATABASE}
@@ -21,6 +23,8 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
+    env_file:
+      - ./stack.env
     depends_on:
       - mariadb
     ports:
