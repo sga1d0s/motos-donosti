@@ -27,7 +27,7 @@ Thumbs.db
 
 # --- Env files ---
 .env
-.env.*   # para .env.local, .env.testing, etc.
+.env.*
 !.env.example
 
 # --- Composer & npm logs ---
