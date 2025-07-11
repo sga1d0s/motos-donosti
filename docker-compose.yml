@@ -11,6 +11,8 @@ services:
       MYSQL_PASSWORD:       ${DB_PASSWORD}
     volumes:
       - ./mariadb_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
     networks:
       - motos_net
 
