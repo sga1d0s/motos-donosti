@@ -12,7 +12,7 @@ services:
     volumes:
       - ./mariadb_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     networks:
       - motos_net
 
@@ -29,10 +29,11 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "8000:8000"
+      - 8000:8000
     networks:
       - motos_net
 
 networks:
   motos_net:
-    external: true
+    driver: bridge
+    # external: true
