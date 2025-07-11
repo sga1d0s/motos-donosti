@@ -10,7 +10,7 @@ services:
       MYSQL_USER:           ${DB_USERNAME}
       MYSQL_PASSWORD:       ${DB_PASSWORD}
     volumes:
-      - ./mariadb_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     ports:
       - 3306:3306
     networks:
