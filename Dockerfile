@@ -1,38 +1,44 @@
-# Dockerfile
+# Stage 1: Builder
+FROM composer:2 AS builder
 
-# Utiliza PHP 8.2 (compatible con tu proyecto Laravel)
+WORKDIR /app
+
+# Copiamos sólo composer.json y composer.lock primero para cachear dependencias
+COPY src/composer.json src/composer.lock ./
+
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Stage 2: Runtime
 FROM php:8.2-fpm
 
-# Instala dependencias de Laravel
+# Instala extensiones y herramientas mínimas
 RUN apt-get update && \
-    apt-get install -y \
-        libzip-dev \
-        zip \
-        unzip \
-        git \
-        curl && \
-    docker-php-ext-install pdo pdo_mysql
+    apt-get install -y libzip-dev zip unzip git curl && \
+    docker-php-ext-install pdo_mysql && \
+    rm -rf /var/lib/apt/lists/*
 
-# Instala Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Copiamos Composer binario desde el builder
+COPY --from=builder /usr/bin/composer /usr/bin/composer
 
-# Configura el directorio de trabajo
 WORKDIR /var/www/html
 
-# Copia el proyecto completo (garantiza que artisan está disponible)
-COPY src /var/www/html
+# Copiamos el código de la aplicación
+COPY src .
 
-# Permitir Composer como superusuario
-ENV COMPOSER_ALLOW_SUPERUSER=1
+# Copiamos las dependencias ya instaladas
+COPY --from=builder /app/vendor ./vendor
 
-# Instala dependencias de Laravel
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# Variables de entorno de Composer
+ENV COMPOSER_ALLOW_SUPERUSER=1 \
+    COMPOSER_HOME=/composer
 
-# Da permisos a las carpetas necesarias
-RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
+# Ajustamos permisos de forma más segura
+RUN chown -R www-data:www-data storage bootstrap/cache && \
+    chmod -R 755 storage bootstrap/cache
 
-# Expone el puerto 8000
 EXPOSE 8000
 
-# Comando por defecto para ejecutar el servidor de Laravel
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Iniciamos como el usuario www-data
+USER www-data
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
