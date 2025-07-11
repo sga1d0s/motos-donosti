@@ -23,9 +23,9 @@ services:
     # container_name: motos_laravel
     restart: always
     env_file:
-      - ./src/.env
-    volumes:
-      - ./src:/var/www/html
+      - .env.example
+    # volumes:
+    #   - ./src:/var/www/html
     depends_on:
       - mariadb
     ports:
