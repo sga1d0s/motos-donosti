@@ -22,8 +22,8 @@ services:
       dockerfile: Dockerfile
     # container_name: motos_laravel
     restart: always
-    # env_file:
-    #   - ./.env
+    env_file:
+      - .env.local
     # volumes:
     #   - ./src:/var/www/html
     depends_on:
