@@ -17,10 +17,8 @@ WORKDIR /var/www/html
 COPY src /var/www/html
 
 # Asegura que existan todas las carpetas que Laravel va a escribir
-RUN mkdir -p bootstrap/cache \
-    storage/framework/{sessions,views,cache} \
-    storage/logs \
-    && chmod -R 775 bootstrap/cache storage
+RUN chmod -R 775 /var/www/html/bootstrap/cache \
+    /var/www/html/storage
 
 # Permitir Composer como superusuario
 ENV COMPOSER_ALLOW_SUPERUSER=1
