@@ -56,3 +56,10 @@ volumes:
       type: none
       o: bind
       device: /share/docker/motos_app/mariadb_data
+  src:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /share/docker/motos_app/src
+  
