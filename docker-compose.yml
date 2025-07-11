@@ -1,6 +1,6 @@
-version: "3.8"
 
 services:
+
   mariadb:
     image: mariadb:latest
     restart: always
@@ -31,20 +31,13 @@ services:
       - "8000:8000"
     networks:
       - motos_net
-
-    # <<< aquí montas tu código src vivo >>>
-    volumes:
-      - /share/docker/motos_app/src:/var/www/html:rw
-
     entrypoint: >
       sh -c "
-        # asegúrate de que existan estas carpetas
-        mkdir -p /var/www/html/storage/framework/{sessions,views,cache} \
-                 /var/www/html/storage/logs \
-                 /var/www/html/bootstrap/cache &&
-        # corrige permisos para www-data
+        # crea carpetas de cache, sesiones y vistas si faltan
+        mkdir -p /var/www/html/storage/framework/{sessions,views,cache} /var/www/html/storage/logs /var/www/html/bootstrap/cache &&
+        # da propiedad a www-data (UID 33)
         chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache &&
-        # arranca el servidor
+        # arranca servidor
         php artisan serve --host=0.0.0.0 --port=8000
       "
 
