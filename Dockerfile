@@ -1,5 +1,3 @@
-# Dockerfile
-
 # Utiliza PHP 8.2 (compatible con tu proyecto Laravel)
 FROM php:8.2-fpm
 
@@ -19,18 +17,20 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configura el directorio de trabajo
 WORKDIR /var/www/html
 
-# Copia el proyecto completo (garantiza que artisan está disponible)
+# Copia el proyecto completo
 COPY src /var/www/html
+
+# Asegura que existan todas las carpetas que Laravel va a escribir
+RUN mkdir -p bootstrap/cache \
+    storage/framework/{sessions,views,cache} \
+    storage/logs \
+ && chmod -R 775 bootstrap/cache storage
 
 # Permitir Composer como superusuario
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Instala dependencias de Laravel
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-
-# Da permisos a las carpetas necesarias
-RUN mkdir -p storage/framework/{sessions,views,cache} \
- && chmod -R 777 storage
 
 # Expone el puerto 8000
 EXPOSE 8000
