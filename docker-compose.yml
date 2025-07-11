@@ -31,7 +31,7 @@ services:
     networks:
       - motos_net
     volumes:
-      - ./src:/var/www/html
+      - mariadb_data/../src:/var/www/html
 
     entrypoint: >
       sh -c "
