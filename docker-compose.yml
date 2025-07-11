@@ -44,4 +44,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /share/CACHEDEV6_DATA/motos_app/mariadb_data
+      device: /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data
