@@ -2,7 +2,7 @@ services:
 
   mariadb:
     image: mariadb:latest
-    container_name: motos_mariadb
+    # container_name: motos_mariadb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -20,8 +20,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: motos_laravel
+    # container_name: motos_laravel
     restart: always
+    # env_file:
+    #   - ./.env
     volumes:
       - ./src:/var/www/html
     depends_on:
