@@ -22,10 +22,11 @@ services:
       dockerfile: Dockerfile
     # container_name: motos_laravel
     restart: always
-    env_file:
-      - ./src/.env
     volumes:
       - ./src:/var/www/html
+
+    env_file:
+      - ../env
     depends_on:
       - mariadb
     ports:
