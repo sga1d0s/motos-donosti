@@ -2,14 +2,10 @@
 FROM php:8.2-fpm
 
 # Instala dependencias de Laravel
-RUN apt-get update && \
-    apt-get install -y \
-        libzip-dev \
-        zip \
-        unzip \
-        git \
-        curl && \
-    docker-php-ext-install pdo pdo_mysql
+RUN apt-get update \
+    && apt-get install -y libzip-dev zip unzip git curl \
+    && docker-php-ext-install pdo pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -24,7 +20,7 @@ COPY src /var/www/html
 RUN mkdir -p bootstrap/cache \
     storage/framework/{sessions,views,cache} \
     storage/logs \
- && chmod -R 775 bootstrap/cache storage
+    && chmod -R 775 bootstrap/cache storage
 
 # Permitir Composer como superusuario
 ENV COMPOSER_ALLOW_SUPERUSER=1
