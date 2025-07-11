@@ -23,7 +23,7 @@ services:
     container_name: motos_laravel
     restart: always
     env_file:
-      - .env
+      - ./.env
     volumes:
       - ./src:/var/www/html
     depends_on:
