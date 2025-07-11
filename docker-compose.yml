@@ -24,8 +24,8 @@ services:
     restart: always
     # env_file:
     #   - ./.env
-    volumes:
-      - ./src:/var/www/html
+    # volumes:
+    #   - ./src:/var/www/html
     depends_on:
       - mariadb
     ports:
@@ -44,4 +44,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /share/docker/motos_app/mariadb_data
+      device: /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data
