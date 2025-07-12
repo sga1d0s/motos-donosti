@@ -1,8 +1,0 @@
-{
-	"folders": [],
-	"settings": {
-		"files.exclude": {
-			"mariadb_data": true,
-		}
-	}
-}
