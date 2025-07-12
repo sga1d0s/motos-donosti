@@ -3,7 +3,7 @@
 @section('title', 'Editar Moto')
 
 @section('content')
-    <h1>Editar Moto #{{ $moto->id }}</h1>
+    <h1>Editar Moto nº{{ $moto->id }}</h1>
 
     @if ($errors->any())
         <div style="color:red">

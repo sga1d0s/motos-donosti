@@ -9,6 +9,13 @@
     <table class="table-auto w-full border-collapse">
 
         <tbody>
+            <tr>
+                <th>
+                    <th>Moto</th>
+                    <th></th>
+                    <th>Hasta</th>
+                </th>
+            </tr>
             @foreach ($motos as $moto)
                 <tr class="border-t">
                     {{-- 0) Editar moto --}}
