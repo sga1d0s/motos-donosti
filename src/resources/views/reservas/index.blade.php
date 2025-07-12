@@ -16,29 +16,21 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($reservas as $res)
-                <tr>
-                    {{-- 0) Editar reserva --}}
-                    <td>
-                        <a href="{{ route('reservas.edit', $res) }}">✏️</a>
-                    </td>
-                    <td>{{ $res->moto->modelo }}</td>
-                    <td>{{ $res->fecha_recogida->format('d-m') }}</td>
-                    <td>{{ $res->fecha_entrega->format('d-m') }}</td>
-                    <td>
-                        <form action="{{ route('reservas.destroy', $res) }}" method="POST"
-                            onsubmit="return confirm('¿Eliminar reserva?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="delete" type="submit">🗑️</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4">No hay reservas</td>
-                </tr>
-            @endforelse
-        </tbody>
+    @forelse($reservas as $res)
+        <tr>
+            <td>
+                <a href="{{ route('reservas.edit', $res) }}">✏️</a>
+            </td>
+            {{-- Protegemos el acceso a modelo --}}
+            <td>{{ $res->moto?->modelo ?? '— sin moto —' }}</td>
+            <td>{{ $res->fecha_recogida->format('d-m') }}</td>
+            <td>{{ $res->fecha_entrega->format('d-m') }}</td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="5">No hay reservas</td>
+        </tr>
+    @endforelse
+</tbody>
     </table>
 @endsection
