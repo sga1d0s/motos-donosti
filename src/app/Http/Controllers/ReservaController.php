@@ -36,7 +36,7 @@ class ReservaController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'moto_id'        => 'required|exists:motos,id',
+            'moto_id' => 'nullable|exists:motos,id',
             'fecha_recogida' => 'required|date|before_or_equal:fecha_entrega',
             'fecha_entrega'  => 'required|date|after_or_equal:fecha_recogida',
         ]);
@@ -71,7 +71,7 @@ class ReservaController extends Controller
     public function update(Request $request, Reserva $reserva)
     {
         $data = $request->validate([
-            'moto_id'        => 'required|exists:motos,id',
+            'moto_id' => 'nullable|exists:motos,id',
             'fecha_recogida' => 'required|date|before_or_equal:fecha_entrega',
             'fecha_entrega'  => 'required|date|after_or_equal:fecha_recogida',
         ]);
