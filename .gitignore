@@ -45,4 +45,3 @@ ehthumbs.db
 Icon?
 Desktop.ini
 docker-compose.BACK
-src/database/seeders/DatabaseSeeder.php
