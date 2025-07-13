@@ -3,7 +3,7 @@
 @section('title', 'Listado de Reservas')
 
 @section('content')
-    <h1 class="mb-4">ReservasS</h1>
+    <h1 class="mb-4">Reservas</h1>
     <p><a href="{{ route('reservas.create') }}">➕ Nueva Reserva</a></p>
 
     <table class="table-auto w-full border-collapse">
