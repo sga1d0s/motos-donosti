@@ -16,7 +16,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - motos_net
+      - rental_motos_net
 
   laravel:
     build:
