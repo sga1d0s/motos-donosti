@@ -10,6 +10,8 @@
 /src/storage/logs/*
 !/src/storage/logs/.gitignore
 /src/.env
+vendor
+node_modules
 
 # --- Docker/MariaDB ---
 /mariadb_data/
