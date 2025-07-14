@@ -45,13 +45,13 @@
                     <td class="px-4 py-2">
                         @php
                             $reserva = $moto->reservas
-                                ->where('fecha_entrega', '>=', now()->toDateString())
-                                ->sortBy('fecha_entrega')
+                                ->where('fecha_hasta', '>=', now()->toDateString())
+                                ->sortBy('fecha_hasta')
                                 ->first();
                         @endphp
 
                         @if ($reserva)
-                            {{ \Carbon\Carbon::parse($reserva->fecha_entrega)->format('d-m') }}
+                            {{ \Carbon\Carbon::parse($reserva->fecha_hasta)->format('d-m') }}
                         @else
                             &mdash;
                         @endif

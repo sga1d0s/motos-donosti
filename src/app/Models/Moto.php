@@ -44,8 +44,8 @@ class Moto extends Model
         // 2) Ocupada si hay reserva activa hoy
         if (
             $this->reservas()
-                 ->where('fecha_recogida', '<=', $hoy)
-                 ->where('fecha_entrega',   '>=', $hoy)
+                 ->where('fecha_desde', '<=', $hoy)
+                 ->where('fecha_hasta', '>=', $hoy)
                  ->exists()
         ) {
             return 'Ocupada';
@@ -54,7 +54,7 @@ class Moto extends Model
         // 3) Reservada si hay reserva futura (recogida > hoy)
         if (
             $this->reservas()
-                 ->where('fecha_recogida', '>', $hoy)
+                 ->where('fecha_desde', '>', $hoy)
                  ->exists()
         ) {
             return 'Reservada';

@@ -21,32 +21,55 @@
 
         <label for="moto_id">Moto:</label>
         <select id="moto_id" name="moto_id">
-            {{-- Opción vacía para no seleccionar ninguna moto --}}
             <option value="" {{ old('moto_id', $reserva->moto_id) === null ? 'selected' : '' }}>
                 — Sin moto —
             </option>
             @foreach ($motos as $id => $modelo)
-                <option value="{{ $id }}" {{ old('moto_id', $reserva->moto_id) == $id ? 'selected' : '' }}>
+                <option
+                    value="{{ $id }}"
+                    {{ old('moto_id', $reserva->moto_id) == $id ? 'selected' : '' }}
+                >
                     {{ $modelo }}
                 </option>
             @endforeach
         </select>
 
-        <label for="fecha_recogida">Fecha de Recogida:</label>
-        <input id="fecha_recogida" name="fecha_recogida" type="date"
-               value="{{ old('fecha_recogida', $reserva->fecha_recogida) }}" required>
+        <label for="cliente">Cliente:</label>
+        <input
+            id="cliente"
+            name="cliente"
+            type="text"
+            value="{{ old('cliente', $reserva->cliente) }}"
+        >
 
-        <label for="fecha_entrega">Fecha de Entrega:</label>
-        <input id="fecha_entrega" name="fecha_entrega" type="date"
-               value="{{ old('fecha_entrega', $reserva->fecha_entrega) }}" required>
+        <label for="fecha_desde">Reserva desde:</label>
+        <input
+            id="fecha_desde"
+            name="fecha_desde"
+            type="date"
+            value="{{ old('fecha_desde', optional($reserva->fecha_desde)->format('Y-m-d')) }}"
+            required
+        >
+
+        <label for="fecha_hasta">Reserva hasta:</label>
+        <input
+            id="fecha_hasta"
+            name="fecha_hasta"
+            type="date"
+            value="{{ old('fecha_hasta', optional($reserva->fecha_hasta)->format('Y-m-d')) }}"
+            required
+        >
 
         <button type="submit" class="primary">Actualizar Reserva</button>
     </form>
 
-    <form action="{{ route('reservas.destroy', $reserva) }}" method="POST"
-          onsubmit="return confirm('¿Eliminar reserva?')">
+    <form
+        action="{{ route('reservas.destroy', $reserva) }}"
+        method="POST"
+        onsubmit="return confirm('¿Eliminar esta reserva?')"
+    >
         @csrf
         @method('DELETE')
-        <button class="delete" type="submit">🗑️</button>
+        <button class="delete" type="submit">🗑️ Eliminar</button>
     </form>
 @endsection

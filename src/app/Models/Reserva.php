@@ -8,14 +8,15 @@ class Reserva extends Model
 {
     protected $fillable = [
         'moto_id',
-        'fecha_recogida',
-        'fecha_entrega',
+        'cliente',
+        'fecha_desde',
+        'fecha_hasta',
         // añade aquí cliente, observaciones…
     ];
 
     protected $casts = [
-        'fecha_recogida' => 'date',
-        'fecha_entrega'  => 'date',
+        'fecha_desde' => 'date:Y-m-d',
+        'fecha_hasta'  => 'date:Y-m-d',
     ];
 
     public function moto()

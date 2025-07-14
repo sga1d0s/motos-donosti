@@ -17,7 +17,7 @@ class CreateReservasTable extends Migration
                   ->onUpdate('cascade')
                   ->onDelete('set null');
             // Fechas de la reserva
-            $table->date('fecha_recogida');
+            $table->date('fecha_desde');
             $table->date('fecha_entrega');
             $table->timestamps();
         });
