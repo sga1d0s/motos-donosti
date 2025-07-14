@@ -13,10 +13,11 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        // Cargamos moto y ordenamos por fecha_recogida
+        // Cargamos moto y ordenamos por fecha_desde
         $reservas = Reserva::with('moto')
-            ->orderBy('fecha_recogida', 'desc')
+            ->orderBy('fecha_desde', 'desc')
             ->get();
+
         return view('reservas.index', compact('reservas'));
     }
 
@@ -26,7 +27,7 @@ class ReservaController extends Controller
     public function create()
     {
         // Listado de motos “libres” o “reservables”
-        $motos = Moto::all()->pluck('modelo', 'id');
+        $motos = Moto::pluck('modelo', 'id');
         return view('reservas.create', compact('motos'));
     }
 
@@ -36,9 +37,10 @@ class ReservaController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'moto_id' => 'nullable|exists:motos,id',
-            'fecha_recogida' => 'required|date|before_or_equal:fecha_entrega',
-            'fecha_entrega'  => 'required|date|after_or_equal:fecha_recogida',
+            'moto_id'      => 'nullable|exists:motos,id',
+            'cliente'      => 'nullable|string|max:255',
+            'fecha_desde'  => 'required|date',
+            'fecha_hasta'  => 'required|date|after_or_equal:fecha_desde',
         ]);
 
         Reserva::create($data);
@@ -52,7 +54,7 @@ class ReservaController extends Controller
      */
     public function show(Reserva $reserva)
     {
-        //
+        return view('reservas.show', compact('reserva'));
     }
 
     /**
@@ -60,7 +62,6 @@ class ReservaController extends Controller
      */
     public function edit(Reserva $reserva)
     {
-        // Lista de motos para el <select>
         $motos = Moto::pluck('modelo', 'id');
         return view('reservas.edit', compact('reserva', 'motos'));
     }
@@ -71,9 +72,10 @@ class ReservaController extends Controller
     public function update(Request $request, Reserva $reserva)
     {
         $data = $request->validate([
-            'moto_id' => 'nullable|exists:motos,id',
-            'fecha_recogida' => 'required|date|before_or_equal:fecha_entrega',
-            'fecha_entrega'  => 'required|date|after_or_equal:fecha_recogida',
+            'moto_id'      => 'nullable|exists:motos,id',
+            'cliente'      => 'nullable|string|max:255',
+            'fecha_desde'  => 'required|date',
+            'fecha_hasta'  => 'required|date|after_or_equal:fecha_desde',
         ]);
 
         $reserva->update($data);
@@ -88,6 +90,7 @@ class ReservaController extends Controller
     public function destroy(Reserva $reserva)
     {
         $reserva->delete();
+
         return redirect()->route('reservas.index')
             ->with('success', 'Reserva eliminada.');
     }
