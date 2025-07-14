@@ -35,7 +35,7 @@ services:
       - rental_motos_net
 
 networks:
-  motos_net:
+  rental_motos_net:
     driver: bridge
 
 volumes:
