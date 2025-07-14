@@ -11,8 +11,8 @@ services:
       MYSQL_DATABASE:       ${DB_DATABASE}
       MYSQL_USER:           ${DB_USERNAME}
       MYSQL_PASSWORD:       ${DB_PASSWORD}
-    volumes:
-      - mariadb_data:/var/lib/mysql
+    # volumes:
+    #   - mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -29,10 +29,17 @@ services:
       - mariadb
     ports:
       - "8000:8000"
-    volumes:
-      - laravel_src:/var/www/html
     networks:
-      - rental_motos_net
+      - motos_net
+    # entrypoint: >
+    #   sh -c "
+    #     # crea carpetas de cache, sesiones y vistas si faltan
+    #     mkdir -p /var/www/html/storage/framework/{sessions,views,cache} /var/www/html/storage/logs /var/www/html/bootstrap/cache &&
+    #     # da propiedad a www-data (UID 33)
+    #     chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache &&
+    #     # arranca servidor
+    #     php artisan serve --host=0.0.0.0 --port=8000
+    #   "
 
 networks:
   motos_net:
@@ -44,11 +51,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /share/CACHEDEV6_DATA/docker/rental_moto/mariadb_data
-
-  laravel_src:
+      device: /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data
+  laravel:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /share/CACHEDEV6_DATA/docker/rental_moto/src
+      device: /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data
