@@ -13,8 +13,8 @@ services:
       MYSQL_PASSWORD:       ${DB_PASSWORD}
     volumes:
       - /share/CACHEDEV6_DATA/docker/rental_moto/mariadb_data:/var/lib/mysql
-    # ports:
-    #   - "3306:3306"
+    ports:
+      - "3307:3306"
     networks:
       - rental_motos_net
 
@@ -27,8 +27,8 @@ services:
       - ./stack.env
     depends_on:
       - mariadb
-    # ports:
-    #   - "8000:8000"
+    ports:
+      - "8001:8000"
     volumes:
       - /share/CACHEDEV6_DATA/docker/rental_moto/src:/var/www/html
     networks:
