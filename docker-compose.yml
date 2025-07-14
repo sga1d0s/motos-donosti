@@ -12,7 +12,7 @@ services:
       MYSQL_USER:           ${DB_USERNAME}
       MYSQL_PASSWORD:       ${DB_PASSWORD}
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - /share/CACHEDEV6_DATA/docker/rental_moto/mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -30,25 +30,10 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - laravel_src:/var/www/html
+      - /share/CACHEDEV6_DATA/docker/rental_moto/src:/var/www/html
     networks:
       - rental_motos_net
 
 networks:
   rental_motos_net:
     driver: bridge
-
-volumes:
-  mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /share/CACHEDEV6_DATA/docker/rental_moto/mariadb_data
-
-  laravel_src:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /share/CACHEDEV6_DATA/docker/rental_moto/src
