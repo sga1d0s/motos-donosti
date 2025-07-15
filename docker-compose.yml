@@ -1,11 +1,18 @@
+
 services:
 
   mariadb:
     image: mariadb:latest
+    restart: always
     env_file:
       - ./stack.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE:       ${DB_DATABASE}
+      MYSQL_USER:           ${DB_USERNAME}
+      MYSQL_PASSWORD:       ${DB_PASSWORD}
     volumes:
-      - ./mariadb_data:/var/lib/mysql   # datos en SSD
+      - /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -15,14 +22,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
     env_file:
       - ./stack.env
-    volumes:
-      - ./src:/var/www/html             # código en SSD
-    ports:
-      - "8000:8000"
     depends_on:
       - mariadb
+    volumes:
+      - /share/CACHEDEV6_DATA/docker/motos_app/src:/var/www/html
+    ports:
+      - "8000:8000"
     networks:
       - motos_net
 
