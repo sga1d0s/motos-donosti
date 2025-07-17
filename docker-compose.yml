@@ -11,7 +11,7 @@ services:
       MYSQL_USER:           ${DB_USERNAME}
       MYSQL_PASSWORD:       ${DB_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -27,7 +27,7 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "8000:8000"
+      - "8001:8000"
     volumes:
       - src:/var/www/html
     networks:
