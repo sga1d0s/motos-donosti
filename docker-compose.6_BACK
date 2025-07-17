@@ -1,5 +1,6 @@
 
 services:
+
   mariadb:
     image: mariadb:latest
     restart: always
@@ -10,10 +11,10 @@ services:
       MYSQL_DATABASE:       ${DB_DATABASE}
       MYSQL_USER:           ${DB_USERNAME}
       MYSQL_PASSWORD:       ${DB_PASSWORD}
+    volumes:
+      - /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    volumes:
-      - mariadb_data:/var/lib/mysql
     networks:
       - motos_net
 
@@ -26,10 +27,10 @@ services:
       - ./stack.env
     depends_on:
       - mariadb
+    volumes:
+      - /share/CACHEDEV6_DATA/docker/motos_app/src:/var/www/html
     ports:
       - "8000:8000"
-    volumes:
-      - src:/var/www/html
     networks:
       - motos_net
 
