@@ -33,6 +33,10 @@ services:
     networks:
       - motos_net
 
+volumes:
+  mariadb_data:
+  src:
+
 networks:
   motos_net:
     driver: bridge
