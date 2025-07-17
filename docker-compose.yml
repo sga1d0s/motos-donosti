@@ -13,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - /share/CACHEDEV6_DATA/docker/motos_app/mariadb_data:/var/lib/mysql
     networks:
       - motos_net
 
@@ -32,11 +32,7 @@ services:
       - src:/var/www/html
     networks:
       - motos_net
-
-volumes:
-  mariadb_data:
-  src:
-
+      
 networks:
   motos_net:
     driver: bridge
